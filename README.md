@@ -1,6 +1,8 @@
 # scpwd
 secure copy pwd - quickly echo scp path including username@hostname and optional filename for productivity.
 
+![Screen Demo](screendemo.gif)
+
 ## Samples
 
 ```console
