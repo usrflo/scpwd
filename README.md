@@ -19,7 +19,7 @@ me@myserver.example.tld:/usr/local/etc/my.conf
 ## Optional user config file
 
 The external username and hostname may differ from local settings.
-Place a .scpwd in a user home directory to override the locally determined user@hostname with
+Place a file named .scpwd in a user's home directory to override the locally determined user@hostname with
 ```
 LOGIN=someuser@someproxy.example.tld
 ```
