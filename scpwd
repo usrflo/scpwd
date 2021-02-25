@@ -6,9 +6,9 @@
 # 
 # >>>
 # /etc/ $ scpwd
-# me@myserver.example.tld:/etc/
+# me@myserver.example.tld:/etc
 # /etc/ $ scpwd /opt/
-# me@myserver.example.tld:/opt/
+# me@myserver.example.tld:/opt
 # /etc/ $ scpwd my.conf
 # me@myserver.example.tld:/etc/my.conf
 # /etc/ $ scpwd /usr/local/etc/my.conf
