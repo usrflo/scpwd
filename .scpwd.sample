@@ -1,0 +1,2 @@
+# Optional config file to override user@hostname
+LOGIN=someuser@someproxy.example.tld
