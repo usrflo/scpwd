@@ -58,9 +58,9 @@ function buildHostName {
 	local DOMAIN=`hostname -d`
 	if [ -z "$DOMAIN" ]
 	then
-		`hostname`
+		echo `hostname`
 	else
-		`hostname -f`
+		echo `hostname -f`
 	fi
 }
 
