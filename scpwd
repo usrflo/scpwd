@@ -29,7 +29,7 @@ CONFIG_FILE=$HOME/.scpwd
 
 function buildPwdFile {
 
-	local PWDFILE=$1
+	local PWDFILE="$1"
 	local BUILTPATH
 	
 	if [ -z "$PWDFILE" ]
@@ -38,7 +38,7 @@ function buildPwdFile {
 	else
 		if [[ $PWDFILE == /* ]]
 		then
-	    	BUILTPATH=$PWDFILE
+			BUILTPATH=$PWDFILE
 		else
 			BUILTPATH=`pwd`/$PWDFILE
 		fi
@@ -49,8 +49,7 @@ function buildPwdFile {
 		>&2 echo "Warning: path does not exist"
 	fi
 
-	# echo $BUILTPATH
-	realpath -m $BUILTPATH
+	echo `realpath -m "$BUILTPATH"` | sed 's/ /\\\\\\\ /g'
 }
 
 function buildHostName {
@@ -67,10 +66,10 @@ function buildHostName {
 if [ -s $CONFIG_FILE ]
 then
 	. $CONFIG_FILE
-	echo $LOGIN:$(buildPwdFile $1)
+	echo $LOGIN:$(buildPwdFile "$1")
 elif [ -z "$SSH_LOGIN_USER" ]
 then
-	echo $USER@$(buildHostName):$(buildPwdFile $1)
+	echo $USER@$(buildHostName):$(buildPwdFile "$1")
 else
-	echo $SSH_LOGIN_USER@$(buildHostName):$(buildPwdFile $1)
+	echo $SSH_LOGIN_USER@$(buildHostName):$(buildPwdFile "$1")
 fi
