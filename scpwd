@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # scpwd : secure copy pwd
 # 
@@ -24,27 +24,28 @@
 # >>>
 # LOGIN=someuser@someproxy.example.tld
 # <<<
-CONFIG_FILE=$HOME/.scpwd
+CONFIG_FILE="$HOME/.scpwd"
 
+set -eo pipefail
 
 function buildPwdFile {
 
 	local PWDFILE="$1"
 	local BUILTPATH
 	
-	if [ -z "$PWDFILE" ]
+	if [[ -z "$PWDFILE" ]]
 	then
-		BUILTPATH=`pwd`/
+		BUILTPATH="`pwd`"
 	else
 		if [[ $PWDFILE == /* ]]
 		then
-			BUILTPATH=$PWDFILE
+			BUILTPATH="$PWDFILE"
 		else
-			BUILTPATH=`pwd`/$PWDFILE
+			BUILTPATH="`pwd`/$PWDFILE"
 		fi
 	fi
 	
-	if [[ ! -a "$BUILTPATH" ]]
+	if [[ ! -e "$BUILTPATH" ]]
 	then
 		>&2 echo "Warning: path does not exist"
 	fi
@@ -57,17 +58,17 @@ function buildHostName {
 	local DOMAIN=`hostname -d`
 	if [ -z "$DOMAIN" ]
 	then
-		echo `hostname`
+		`hostname`
 	else
-		echo `hostname -f`
+		`hostname -f`
 	fi
 }
 
-if [ -s $CONFIG_FILE ]
+if [[ -s "$CONFIG_FILE" ]]
 then
-	. $CONFIG_FILE
+	. "$CONFIG_FILE"
 	echo $LOGIN:$(buildPwdFile "$1")
-elif [ -z "$SSH_LOGIN_USER" ]
+elif [[ -z "$SSH_LOGIN_USER" ]]
 then
 	echo $USER@$(buildHostName):$(buildPwdFile "$1")
 else
