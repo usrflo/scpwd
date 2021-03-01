@@ -55,7 +55,7 @@ function buildPwdFile {
 
 function buildHostName {
 
-	if [ -z `hostname -d` ]
+	if [[ -z `hostname -d` ]]
 	then
 		hostname
 	else
