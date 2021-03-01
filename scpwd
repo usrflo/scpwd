@@ -26,7 +26,7 @@
 # <<<
 CONFIG_FILE="$HOME/.scpwd"
 
-set -eo pipefail
+set -euo pipefail
 
 function buildPwdFile {
 
@@ -55,22 +55,23 @@ function buildPwdFile {
 
 function buildHostName {
 
-	local DOMAIN=`hostname -d`
-	if [ -z "$DOMAIN" ]
+	if [[ -z `hostname -d` ]]
 	then
-		echo `hostname`
+		hostname
 	else
-		echo `hostname -f`
+		hostname -f
 	fi
 }
+
+PATHIN=${1:-}
 
 if [[ -s "$CONFIG_FILE" ]]
 then
 	. "$CONFIG_FILE"
-	echo $LOGIN:$(buildPwdFile "$1")
-elif [[ -z "$SSH_LOGIN_USER" ]]
+	echo $LOGIN:$(buildPwdFile "$PATHIN")
+elif [[ -z "${SSH_LOGIN_USER:-}" ]]
 then
-	echo $USER@$(buildHostName):$(buildPwdFile "$1")
+	echo $USER@$(buildHostName):$(buildPwdFile "$PATHIN")
 else
-	echo $SSH_LOGIN_USER@$(buildHostName):$(buildPwdFile "$1")
+	echo $SSH_LOGIN_USER@$(buildHostName):$(buildPwdFile "$PATHIN")
 fi
